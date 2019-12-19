@@ -2,31 +2,27 @@ import React from 'react'
 import {Square} from './Square'
 
 export class Board extends React.Component {
-  renderSquare(value: number) {
-    return <Square value={value}/>
-  }
+
 
   render() {
     const status = 'Next player: X'
-
+    const arr = [[0, 1, 2], [3, 4, 5], [6, 7, 8]]
     return (
       <div>
         <div className="status">{status}</div>
-        <div className="board-row">
-          {this.renderSquare(0)}
-          {this.renderSquare(1)}
-          {this.renderSquare(2)}
-        </div>
-        <div className="board-row">
-          {this.renderSquare(3)}
-          {this.renderSquare(4)}
-          {this.renderSquare(5)}
-        </div>
-        <div className="board-row">
-          {this.renderSquare(6)}
-          {this.renderSquare(7)}
-          {this.renderSquare(8)}
-        </div>
+        {
+          arr.map(row => {
+            return (
+              <div className="board-row">
+                {
+                  row.map(column => {
+                    return <Square value={column}/>
+                  })
+                }
+              </div>
+            )
+          })
+        }
       </div>
     )
   }
