@@ -69,10 +69,10 @@ export class Game extends React.Component<any, GameState> {
   }
 
   reverseHistory() {
-    let reverseHistory = this.state.reverseHistory
-    this.setState({
-      reverseHistory: !reverseHistory
-    })
+    this.setState(state => ({
+        reverseHistory: !state.reverseHistory
+      })
+    )
   }
 
   render() {
