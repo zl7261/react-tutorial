@@ -26,7 +26,7 @@ export class Game extends React.Component<any, GameState> {
     }
   }
 
-  handleClick(i: number) {
+  handleClick = (i: number) => {
     const history = this.state.history.slice(0, this.state.stepNumber + 1)
     const current = history[history.length - 1]
     const squares = current.squares.slice()
@@ -68,7 +68,7 @@ export class Game extends React.Component<any, GameState> {
     })
   }
 
-  reverseHistory() {
+  reverseHistory = () => {
     this.setState(state => ({
         reverseHistory: !state.reverseHistory
       })
@@ -134,14 +134,14 @@ export class Game extends React.Component<any, GameState> {
         <div className="game-board">
           <Board
             squares={current.squares}
-            onClick={(i: number) => this.handleClick(i)}
+            onClick={this.handleClick}
           />
         </div>
         <div className="game-info">
           <div>
             {text}
             <span style={{color: 'red'}}>{status}</span>
-            <button onClick={() => this.reverseHistory()}>reverseHistory</button>
+            <button onClick={this.reverseHistory}>reverseHistory</button>
           </div>
           <ol className={reverseHistory ? 'ol-reverse' : ''}>{moves}</ol>
         </div>
