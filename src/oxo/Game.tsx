@@ -1,12 +1,16 @@
 import React from 'react'
-import {Board, calculateWinner} from './Board'
+import {Board} from './Board'
 import classNames from 'classnames'
 
+interface GameHistory {
+  squares: string[]
+  hover: boolean
+}
+
+type Winner = string | null
+
 interface GameState {
-  history: {
-    squares: string[]
-    hover: boolean
-  }[],
+  history: GameHistory[],
   stepNumber: number
   xIsNext: boolean
   reverseHistory: boolean
@@ -17,7 +21,7 @@ export class Game extends React.Component<any, GameState> {
     super(props)
     this.state = {
       history: [{
-        squares: Array(9).fill(null),
+        squares: Array(9).fill(''),
         hover: false
       }],
       stepNumber: 0,
@@ -75,13 +79,20 @@ export class Game extends React.Component<any, GameState> {
     )
   }
 
-  render() {
-    const history = this.state.history
-    const reverseHistory = this.state.reverseHistory
-    const current = history[this.state.stepNumber]
-    const winner = calculateWinner(current.squares)
+  renderFullTitle(winner: Winner): { text: string, status: string } {
+    let text, status
+    if (winner) {
+      text = 'Winner'
+      status = winner
+    } else {
+      text = 'Next player'
+      status = this.state.xIsNext ? 'X' : 'O'
+    }
+    return {text, status}
+  }
 
-    const moves = history.map((steps, index) => {
+  renderHistory = (history: GameHistory[], reverseHistory: boolean) => {
+    return history.map((steps, index) => {
       const desc = index ? 'Go to index #' + index : 'Go to game start'
 
       let liClass = classNames({
@@ -104,11 +115,9 @@ export class Game extends React.Component<any, GameState> {
               let context = `${column}列:${step ? step : '空'}  `
 
               if (column === 1) {
-
                 // eslint-disable-next-line no-lone-blocks
                 {/**todo  换行*/
                 }
-
                 let row = parseInt((index / 3).toString()) + 1
                 context = `${row}行 ${context}`
               }
@@ -119,15 +128,16 @@ export class Game extends React.Component<any, GameState> {
         </li>
       )
     })
+  }
 
-    let text, status
-    if (winner) {
-      text = 'Winner'
-      status = winner
-    } else {
-      text = 'Next player'
-      status = this.state.xIsNext ? 'X' : 'O'
-    }
+  render() {
+    const history = this.state.history
+    const reverseHistory = this.state.reverseHistory
+    const current = history[this.state.stepNumber]
+
+    const moves = this.renderHistory(history, reverseHistory)
+    const winner = calculateWinner(current.squares)
+    let fullTitle = this.renderFullTitle(winner)
 
     return (
       <div className="game">
@@ -139,8 +149,8 @@ export class Game extends React.Component<any, GameState> {
         </div>
         <div className="game-info">
           <div>
-            {text}
-            <span style={{color: 'red'}}>{status}</span>
+            {fullTitle.text}
+            <span style={{color: 'red'}}>{fullTitle.status}</span>
             <button onClick={this.reverseHistory}>reverseHistory</button>
           </div>
           <ol className={reverseHistory ? 'ol-reverse' : ''}>{moves}</ol>
@@ -151,3 +161,29 @@ export class Game extends React.Component<any, GameState> {
 
 
 }
+
+const Win_Line = [
+  [0, 1, 2],
+  [3, 4, 5],
+  [6, 7, 8],
+  [0, 3, 6],
+  [1, 4, 7],
+  [2, 5, 8],
+  [0, 4, 8],
+  [2, 4, 6]
+]
+export const calculateWinner = (squares: string[]): Winner => {
+  for (let i = 0; i < Win_Line.length; i++) {
+    const [a, b, c] = Win_Line[i]
+    if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
+      return squares[a]
+    }
+  }
+  if (!squares.includes('')) {
+    console.log(squares)
+    return 'none'
+  }
+
+  return null
+}
+
