@@ -48,3 +48,14 @@ ol, ul {
 .game-info {
     margin-left: 20px;
 }
+
+.history-hover {
+    color: red;
+}
+
+.ol-reverse {
+    transform: rotate(180deg);
+}
+.li-reverse {
+    transform: rotate(-180deg);
+}

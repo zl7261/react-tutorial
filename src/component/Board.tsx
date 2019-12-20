@@ -24,6 +24,7 @@ export class Board extends React.Component<BoardProps, BoardState> {
   renderSquare(i: number) {
     return (
       <Square
+        key={'game_square' + i}
         value={this.props.squares[i]}
         onClick={() => this.props.onClick(i)}
       />
@@ -33,27 +34,24 @@ export class Board extends React.Component<BoardProps, BoardState> {
   render() {
     return (
       <div>
-        <div className="board-row">
-          {this.renderSquare(0)}
-          {this.renderSquare(1)}
-          {this.renderSquare(2)}
-        </div>
-        <div className="board-row">
-          {this.renderSquare(3)}
-          {this.renderSquare(4)}
-          {this.renderSquare(5)}
-        </div>
-        <div className="board-row">
-          {this.renderSquare(6)}
-          {this.renderSquare(7)}
-          {this.renderSquare(8)}
-        </div>
+        {[0, 1, 2].map(i => {
+          return (
+            <div key={'board-row-' + i}
+                 className="board-row">
+              {[0, 1, 2].map(j => {
+                return this.renderSquare(3 * i + j)
+              })}
+            </div>
+          )
+        })}
       </div>
-    );
+    )
   }
 }
 
-export function calculateWinner(squares: string[]) {
+export function
+
+calculateWinner(squares: string[]) {
   const lines = [
     [0, 1, 2],
     [3, 4, 5],

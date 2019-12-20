@@ -1,12 +1,15 @@
 import React from 'react'
 import {Board, calculateWinner} from './Board'
+import classNames from 'classnames'
 
 interface GameState {
   history: {
     squares: string[]
+    hover: boolean
   }[],
   stepNumber: number
   xIsNext: boolean
+  reverseHistory: boolean
 }
 
 export class Game extends React.Component<any, GameState> {
@@ -14,10 +17,12 @@ export class Game extends React.Component<any, GameState> {
     super(props)
     this.state = {
       history: [{
-        squares: Array(9).fill(null)
+        squares: Array(9).fill(null),
+        hover: false
       }],
       stepNumber: 0,
-      xIsNext: true
+      xIsNext: true,
+      reverseHistory: false
     }
   }
 
@@ -25,47 +30,103 @@ export class Game extends React.Component<any, GameState> {
     const history = this.state.history.slice(0, this.state.stepNumber + 1)
     const current = history[history.length - 1]
     const squares = current.squares.slice()
+
     if (calculateWinner(squares) || squares[i]) {
       return
     }
     squares[i] = this.state.xIsNext ? 'X' : 'O'
     this.setState({
       history: history.concat([{
-        squares: squares
+        squares: squares,
+        hover: false
       }]),
       stepNumber: history.length,
       xIsNext: !this.state.xIsNext
     })
   }
 
-  jumpTo(step: number) {
+  jumpTo(index: number) {
     this.setState({
-      stepNumber: step,
-      xIsNext: (step % 2) === 0
+      stepNumber: index,
+      xIsNext: (index % 2) === 0
+    })
+  }
+
+  historyOnMouseOver(index: number) {
+    let history = this.state.history
+    history[index].hover = true
+    this.setState({
+      history: history
+    })
+  }
+
+  historyOnMouseLeave(index: number) {
+    let history = this.state.history
+    history[index].hover = false
+    this.setState({
+      history: history
+    })
+  }
+
+  reverseHistory() {
+    let reverseHistory = this.state.reverseHistory
+    this.setState({
+      reverseHistory: !reverseHistory
     })
   }
 
   render() {
     const history = this.state.history
-    const current = history[this.state.stepNumber];
+    const reverseHistory = this.state.reverseHistory
+    const current = history[this.state.stepNumber]
     const winner = calculateWinner(current.squares)
 
-    const moves = history.map((step, move) => {
-      const desc = move ?
-        'Go to move #' + move :
-        'Go to game start'
+    const moves = history.map((steps, index) => {
+      const desc = index ? 'Go to index #' + index : 'Go to game start'
+
+      let liClass = classNames({
+        'history-hover': steps.hover,
+        'li-reverse': reverseHistory
+      })
+
       return (
-        <li key={move}>
-          <button onClick={() => this.jumpTo(move)}>{desc}</button>
+        <li key={'game_history_' + index}
+            className={liClass}
+            onMouseOver={() => this.historyOnMouseOver(index)}
+            onMouseLeave={() => this.historyOnMouseLeave(index)}
+        >
+          <button onClick={() => this.jumpTo(index)}>
+            {desc}
+          </button>
+          <span>
+          {steps.squares.map((step, index) => {
+              let column = (index % 3) + 1
+              let context = `${column}列:${step ? step : '空'}  `
+
+              if (column === 1) {
+
+                // eslint-disable-next-line no-lone-blocks
+                {/**todo  换行*/
+                }
+
+                let row = parseInt((index / 3).toString()) + 1
+                context = `${row}行 ${context}`
+              }
+              return context
+            }
+          )}
+          </span>
         </li>
       )
     })
 
-    let status
+    let text, status
     if (winner) {
-      status = 'Winner: ' + winner
+      text = 'Winner'
+      status = winner
     } else {
-      status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O')
+      text = 'Next player'
+      status = this.state.xIsNext ? 'X' : 'O'
     }
 
     return (
@@ -75,13 +136,18 @@ export class Game extends React.Component<any, GameState> {
             squares={current.squares}
             onClick={(i: number) => this.handleClick(i)}
           />
-
         </div>
         <div className="game-info">
-          <div>{status}</div>
-          <ol>{moves}</ol>
+          <div>
+            {text}
+            <span style={{color: 'red'}}>{status}</span>
+            <button onClick={() => this.reverseHistory()}>reverseHistory</button>
+          </div>
+          <ol className={reverseHistory ? 'ol-reverse' : ''}>{moves}</ol>
         </div>
       </div>
     )
   }
+
+
 }
