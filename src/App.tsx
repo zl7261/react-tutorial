@@ -1,7 +1,7 @@
 import React from 'react';
-import {Game} from './component/Game'
+import {Game} from './oxo/Game'
 import './App.css';
-import './component/Game.css'
+import './oxo/Game.css'
 
 const App: React.FC = () => {
   return (
