@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {ChangeEvent} from 'react'
 import {Board} from './Board'
 import {StepTimer} from './StepTimer'
 import classNames from 'classnames'
@@ -16,6 +16,7 @@ interface GameState {
   xIsNext: boolean
   reverseHistory: boolean
   step: number
+  inputValue: string
 }
 
 export class Game extends React.Component<any, GameState> {
@@ -29,7 +30,8 @@ export class Game extends React.Component<any, GameState> {
       stepNumber: 0,
       xIsNext: true,
       reverseHistory: false,
-      step: 0
+      step: 0,
+      inputValue: 'Hello Word!'
     }
   }
 
@@ -121,7 +123,7 @@ export class Game extends React.Component<any, GameState> {
               if (column === 1) {
                 // eslint-disable-next-line no-lone-blocks
                 {
-                  context+=`  `
+                  context += `  `
                 }
                 let row = parseInt((index / 3).toString()) + 1
                 context = `${row}行 ${context}`
@@ -135,6 +137,10 @@ export class Game extends React.Component<any, GameState> {
     })
   }
 
+  handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    this.setState({inputValue: e.target.value})
+  }
+
   render() {
     const history = this.state.history
     const reverseHistory = this.state.reverseHistory
@@ -146,6 +152,11 @@ export class Game extends React.Component<any, GameState> {
 
     return (
       <div className="game">
+        <input type="text"
+               onChange={this.handleChange}
+               placeholder='请输入值'/>
+        {this.state.inputValue}
+
 
         <div className="game-board">
           <Board

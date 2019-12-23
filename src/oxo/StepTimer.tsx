@@ -43,9 +43,9 @@ export class StepTimer extends React.Component<TimerProp, TimerState> {
 
   componentDidUpdate(prevProp: TimerProp) {
     if (this.props.step !== prevProp.step) {
-      this.setState(state => ({
+      this.setState({
         seconds: 0
-      }))
+      })
     }
   }
 
