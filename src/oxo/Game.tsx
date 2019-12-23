@@ -1,5 +1,6 @@
 import React from 'react'
 import {Board} from './Board'
+import {StepTimer} from './StepTimer'
 import classNames from 'classnames'
 
 interface GameHistory {
@@ -14,6 +15,7 @@ interface GameState {
   stepNumber: number
   xIsNext: boolean
   reverseHistory: boolean
+  step: number
 }
 
 export class Game extends React.Component<any, GameState> {
@@ -26,7 +28,8 @@ export class Game extends React.Component<any, GameState> {
       }],
       stepNumber: 0,
       xIsNext: true,
-      reverseHistory: false
+      reverseHistory: false,
+      step: 0
     }
   }
 
@@ -45,7 +48,8 @@ export class Game extends React.Component<any, GameState> {
         hover: false
       }]),
       stepNumber: history.length,
-      xIsNext: !this.state.xIsNext
+      xIsNext: !this.state.xIsNext,
+      step: this.state.step + 1
     })
   }
 
@@ -116,7 +120,8 @@ export class Game extends React.Component<any, GameState> {
 
               if (column === 1) {
                 // eslint-disable-next-line no-lone-blocks
-                {/**todo  换行*/
+                {
+                  context+=`  `
                 }
                 let row = parseInt((index / 3).toString()) + 1
                 context = `${row}行 ${context}`
@@ -141,6 +146,7 @@ export class Game extends React.Component<any, GameState> {
 
     return (
       <div className="game">
+
         <div className="game-board">
           <Board
             squares={current.squares}
@@ -148,9 +154,11 @@ export class Game extends React.Component<any, GameState> {
           />
         </div>
         <div className="game-info">
+          <StepTimer step={this.state.step}/>
           <div>
             {fullTitle.text}
             <span style={{color: 'red'}}>{fullTitle.status}</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;
             <button onClick={this.reverseHistory}>reverseHistory</button>
           </div>
           <ol className={reverseHistory ? 'ol-reverse' : ''}>{moves}</ol>
@@ -158,8 +166,6 @@ export class Game extends React.Component<any, GameState> {
       </div>
     )
   }
-
-
 }
 
 const Win_Line = [
