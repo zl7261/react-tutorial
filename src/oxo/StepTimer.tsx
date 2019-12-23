@@ -6,7 +6,6 @@ interface TimerProp {
 
 interface TimerState {
   seconds: number
-  step: number
 }
 
 
@@ -17,8 +16,7 @@ export class StepTimer extends React.Component<TimerProp, TimerState> {
     super(props)
     this.interval = interval
     this.state = {
-      seconds: 0,
-      step: -1
+      seconds: 0
     }
   }
 
@@ -44,17 +42,19 @@ export class StepTimer extends React.Component<TimerProp, TimerState> {
     this.clearTimer()
   }
 
-  render() {
-    if (this.props.step !== this.state.step) {
+  componentDidUpdate(prevProp: TimerProp) {
+    if (this.props.step !== prevProp.step) {
       this.setState(state => ({
-        seconds: 0,
-        step: this.props.step
+        seconds: 0
       }))
     }
+  }
+
+  render() {
     return (
       <div>
         <p>
-          Steps:{this.state.step + 1}
+          Steps:{this.props.step + 1}
           &nbsp;&nbsp;&nbsp;&nbsp;
           Seconds: {this.state.seconds}
         </p>
