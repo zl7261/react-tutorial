@@ -10,11 +10,10 @@ interface TimerState {
 
 
 export class StepTimer extends React.Component<TimerProp, TimerState> {
-  private interval: NodeJS.Timer
+  interval!: NodeJS.Timer
 
   constructor(props: TimerProp, interval: NodeJS.Timer) {
     super(props)
-    this.interval = interval
     this.state = {
       seconds: 0
     }
