@@ -15,6 +15,7 @@ interface BoardProps {
 export class Board extends React.Component<BoardProps, BoardState> {
   constructor(props: BoardProps) {
     super(props)
+    console.log('board.tsx!!')
     this.state = {
       squares: Array(9).fill(null),
       xIsNext: true

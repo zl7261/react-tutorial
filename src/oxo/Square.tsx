@@ -5,11 +5,15 @@ interface SquareProps {
   onClick: Function
 }
 
-interface SquareState {
-  value: number | null | string
-}
 
-export class Square extends React.Component<SquareProps,SquareState> {
+export class Square extends React.Component<SquareProps, any> {
+
+
+  constructor(props: Readonly<SquareProps>) {
+    super(props)
+    console.log('square.tsx!!')
+  }
+
   render() {
     return (
       <button
@@ -18,6 +22,6 @@ export class Square extends React.Component<SquareProps,SquareState> {
       >
         {this.props.value}
       </button>
-    );
+    )
   }
 }

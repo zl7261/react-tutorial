@@ -21,6 +21,7 @@ interface GameState {
 export class Game extends React.Component<any, GameState> {
   constructor(props: any) {
     super(props)
+    console.log('game.tsx!!')
     this.state = {
       history: [{
         squares: Array(9).fill(''),
@@ -118,10 +119,7 @@ export class Game extends React.Component<any, GameState> {
               let context = `${column}列:${step ? step : '空'}  `
 
               if (column === 1) {
-                // eslint-disable-next-line no-lone-blocks
-                {
-                  context += `  `
-                }
+                context += `    `
                 let row = parseInt((index / 3).toString()) + 1
                 context = `${row}行 ${context}`
               }
