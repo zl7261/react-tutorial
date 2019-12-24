@@ -52,11 +52,9 @@ export class StepTimer extends React.Component<TimerProp, TimerState> {
   render() {
     return (
       <div>
-        <p>
           Steps:{this.props.step + 1}
           &nbsp;&nbsp;&nbsp;&nbsp;
           Seconds: {this.state.seconds}
-        </p>
       </div>
     )
   }

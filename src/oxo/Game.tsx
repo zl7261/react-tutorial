@@ -1,4 +1,4 @@
-import React, {ChangeEvent} from 'react'
+import React from 'react'
 import {Board} from './Board'
 import {StepTimer} from './StepTimer'
 import classNames from 'classnames'
@@ -16,7 +16,6 @@ interface GameState {
   xIsNext: boolean
   reverseHistory: boolean
   step: number
-  inputValue: string
 }
 
 export class Game extends React.Component<any, GameState> {
@@ -30,8 +29,7 @@ export class Game extends React.Component<any, GameState> {
       stepNumber: 0,
       xIsNext: true,
       reverseHistory: false,
-      step: 0,
-      inputValue: 'Hello Word!'
+      step: 0
     }
   }
 
@@ -102,13 +100,12 @@ export class Game extends React.Component<any, GameState> {
       const desc = index ? 'Go to index #' + index : 'Go to game start'
 
       let liClass = classNames({
-        'history-hover': steps.hover,
         'li-reverse': reverseHistory
       })
 
       return (
         <li key={'game_history_' + index}
-            className={liClass}
+            className={['history-li', liClass].join(' ')}
             onMouseOver={() => this.historyOnMouseOver(index)}
             onMouseLeave={() => this.historyOnMouseLeave(index)}
         >
@@ -137,9 +134,6 @@ export class Game extends React.Component<any, GameState> {
     })
   }
 
-  handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    this.setState({inputValue: e.target.value})
-  }
 
   render() {
     const history = this.state.history
@@ -149,29 +143,19 @@ export class Game extends React.Component<any, GameState> {
     const moves = this.renderHistory(history, reverseHistory)
     const winner = calculateWinner(current.squares)
     let fullTitle = this.renderFullTitle(winner)
-
     return (
       <div className="game">
-        <input type="text"
-               onChange={this.handleChange}
-               placeholder='请输入值'/>
-        {this.state.inputValue}
-
-
-        <div className="game-board">
-          <Board
-            squares={current.squares}
-            onClick={this.handleClick}
-          />
-        </div>
-        <div className="game-info">
+        <Board
+          squares={current.squares}
+          onClick={this.handleClick}
+        />
+        <div className={'game-info'}>
           <StepTimer step={this.state.step}/>
-          <div>
-            {fullTitle.text}
-            <span style={{color: 'red'}}>{fullTitle.status}</span>
-            &nbsp;&nbsp;&nbsp;&nbsp;
-            <button onClick={this.reverseHistory}>reverseHistory</button>
-          </div>
+
+          {fullTitle.text}
+          <span style={{color: 'red'}}>{fullTitle.status}</span>
+          &nbsp;&nbsp;&nbsp;&nbsp;
+          <button onClick={this.reverseHistory}>reverseHistory</button>
           <ol className={reverseHistory ? 'ol-reverse' : ''}>{moves}</ol>
         </div>
       </div>

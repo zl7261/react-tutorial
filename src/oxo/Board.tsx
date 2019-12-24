@@ -33,7 +33,7 @@ export class Board extends React.Component<BoardProps, BoardState> {
 
   render() {
     return (
-      <div>
+      <div className={'board'}>
         {[0, 1, 2].map(i => {
           return (
             <div key={'board-row-' + i}

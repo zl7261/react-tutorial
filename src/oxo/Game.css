@@ -40,22 +40,30 @@ ol, ul {
     background: #ddd;
 }
 
-.game {
-    display: flex;
-    flex-direction: row;
+
+.board {
+    display: inline-block;
+    vertical-align: top
+
 }
 
 .game-info {
-    margin-left: 20px;
+    display: inline-block;
+    vertical-align: top
+
 }
 
-.history-hover {
-    color: red;
+.history-li:hover {
+    color: blue;
+    text-decoration: underline;
+    text-decoration-color: red;
+
 }
 
 .ol-reverse {
     transform: rotate(180deg);
 }
+
 .li-reverse {
     transform: rotate(-180deg);
 }
