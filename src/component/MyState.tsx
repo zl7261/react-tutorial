@@ -16,7 +16,7 @@ export class MyState extends React.Component<any, StateState> {
     }
   }
 
-  addOriginCountByFunction = () => {
+  addOriginalCountByFunction = () => {
     this.setState(state => (
       {
         originalCount: state.originalCount + 1
@@ -62,7 +62,7 @@ export class MyState extends React.Component<any, StateState> {
 
   componentDidMount(): void {
     this.addOriginalCountByOrigin()
-    this.addOriginCountByFunction()
+    this.addOriginalCountByFunction()
 
     this.addFunctionalCountByFunction()
     this.addFunctionalCountByOrigin()
