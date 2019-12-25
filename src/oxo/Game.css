@@ -1,6 +1,6 @@
-body {
-    font: 14px "Century Gothic", Futura, sans-serif;
-    margin: 20px;
+.game {
+    box-shadow: 0 50px 50px rgba(0, 0, 0, 0.5),
+    0 0 0 100px rgba(0, 0, 0, 0.1);
 }
 
 ol, ul {

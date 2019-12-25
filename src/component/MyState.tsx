@@ -38,13 +38,13 @@ export class MyState extends React.Component<any, StateState> {
     })
   }
 
-  addFunctionalCountByFunction = () => {
-    this.setState(state => (
+  addFunctionalCountByFunction = async () => {
+    await this.setState(state => (
       {
         functionalCount: state.functionalCount + 1
       }
     ))
-    this.setState(state => (
+    await this.setState(state => (
       {
         functionalCount: state.functionalCount + 1
       }
@@ -64,8 +64,8 @@ export class MyState extends React.Component<any, StateState> {
     this.addOriginalCountByOrigin()
     this.addOriginalCountByFunction()
 
-    this.addFunctionalCountByFunction()
-    this.addFunctionalCountByOrigin()
+    this.addFunctionalCountByFunction().then(() => this.addFunctionalCountByOrigin())
+
   }
 
   render() {

@@ -5,7 +5,7 @@ import './oxo/Game.css'
 import './component/MyInput'
 import {MyInput} from './component/MyInput'
 import {MyState} from './component/MyState'
-import logo from './logo.svg'
+// import logo from './logo.svg'
 
 
 const App: React.FC = () => {
@@ -25,9 +25,9 @@ const App: React.FC = () => {
       {/*    Learn React*/}
       {/*  </a>*/}
       {/*</header>*/}
-      <Game/>
       <MyInput/>
       <MyState/>
+      <Game/>
     </div>
   )
 }
