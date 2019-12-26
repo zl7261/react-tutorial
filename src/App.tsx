@@ -6,7 +6,8 @@ import './component/MyInput'
 import {MyInput} from './component/MyInput'
 import {MyState} from './component/MyState'
 // import logo from './logo.svg'
-
+import {Table} from './feature/Table'
+import {TableFragment} from './feature/TableFragment'
 
 const App: React.FC = () => {
   return (
@@ -28,6 +29,8 @@ const App: React.FC = () => {
       <MyInput/>
       <MyState/>
       <Game/>
+      <Table/>
+      <TableFragment/>
     </div>
   )
 }
