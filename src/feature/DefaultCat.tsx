@@ -7,10 +7,6 @@ interface CatProps {
 }
 
 export class CatComponent extends React.Component<CatProps, any> {
-  constructor(props: any) {
-    super(props)
-  }
-
   static defaultProps = {
     catName: 'Sandy',
     eyeColor: 'deepblue',

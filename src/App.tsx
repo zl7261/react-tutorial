@@ -9,7 +9,7 @@ import {MyState} from './component/MyState'
 import {Table} from './feature/Table'
 import {TableFragment} from './feature/TableFragment'
 import {CatComponent} from './feature/DefaultCat'
-import {UncontrolledInput} from './feature/UncontrolledInput'
+import {NameForm} from './feature/NameForm'
 
 const App: React.FC = () => {
   return (
@@ -34,7 +34,7 @@ const App: React.FC = () => {
       <Table/>
       <TableFragment/>
       <CatComponent catName={'haha'}/>
-      <UncontrolledInput/>
+      <NameForm/>
     </div>
   )
 }
