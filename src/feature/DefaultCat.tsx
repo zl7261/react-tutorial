@@ -21,15 +21,19 @@ export class CatComponent extends React.Component<CatProps, any> {
     return <div>
       <table style={{'borderCollapse': 'collapse'}}>
         <thead>
-        <th style={{'border': 'solid 1px red'}}>catName</th>
-        <th style={{'border': 'solid 1px red'}}>eyeColor</th>
-        <th style={{'border': 'solid 1px red'}}>age</th>
+        <tr>
+          <th style={{'border': 'solid 1px red'}}>catName</th>
+          <th style={{'border': 'solid 1px red'}}>eyeColor</th>
+          <th style={{'border': 'solid 1px red'}}>age</th>
+        </tr>
         </thead>
+        <tbody>
         <tr>
           <td style={{'border': 'solid 1px red'}}>{this.props.catName}</td>
           <td style={{'border': 'solid 1px red'}}>{this.props.eyeColor}</td>
           <td style={{'border': 'solid 1px red'}}> {this.props.age}</td>
         </tr>
+        </tbody>
       </table>
     </div>
   }

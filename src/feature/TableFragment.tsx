@@ -4,11 +4,13 @@ export class TableFragment extends React.Component<any, any> {
   render() {
     return (
       <table>
+        <tbody>
         <tr>
-          <Columns />
+          <Columns/>
         </tr>
+        </tbody>
       </table>
-    );
+    )
   }
 }
 
