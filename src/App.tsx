@@ -8,6 +8,7 @@ import {MyState} from './component/MyState'
 // import logo from './logo.svg'
 import {Table} from './feature/Table'
 import {TableFragment} from './feature/TableFragment'
+import {CatComponent} from './feature/DefaultCat'
 
 const App: React.FC = () => {
   return (
@@ -31,6 +32,7 @@ const App: React.FC = () => {
       <Game/>
       <Table/>
       <TableFragment/>
+      <CatComponent catName={'haha'}/>
     </div>
   )
 }

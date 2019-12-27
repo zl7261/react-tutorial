@@ -8,7 +8,6 @@ interface SquareProps {
 
 export class Square extends React.Component<SquareProps, any> {
 
-
   constructor(props: Readonly<SquareProps>) {
     super(props)
     console.log('square.tsx!!')
